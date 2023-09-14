@@ -1,7 +1,16 @@
-import css from './ContactFilter.module.css';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilter } from 'redux/selectors';
+import { filterContacts } from 'redux/actions';
 
-const ContactFilter = ({ value, onChange }) => {
+import css from './ContactFilter.module.css';
+
+const ContactFilter = () => {
+  const filter = useSelector(getFilter);
+
+  const dispatch = useDispatch();
+
+  const onChangeFilter = event => {};
+
   return (
     <label className={css.label}>
       Find contacts by name
@@ -12,16 +21,12 @@ const ContactFilter = ({ value, onChange }) => {
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
-        value={value}
-        onChange={onChange}
+        value={filter}
+        onChange={event => onChangeFilter(event)}
+        // onChange={() => dispatch(filterContacts(filter))}
       />
     </label>
   );
 };
 
 export default ContactFilter;
-
-ContactFilter.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-};

@@ -1,15 +1,21 @@
 import { useState } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { Notify } from 'notiflix';
+import { getContacts } from 'redux/selectors';
+import { addContact } from 'redux/actions';
 import css from './ContactEditor.module.css';
 
-const ContactEditor = ({ onSubmit }) => {
+const ContactEditor = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleChange = event => {
-    const { name: nameNew, value } = event.currentTarget;
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
-    switch (nameNew) {
+  const handleChange = event => {
+    const { name, value } = event.currentTarget;
+
+    switch (name) {
       case 'name':
         setName(value);
         break;
@@ -19,12 +25,23 @@ const ContactEditor = ({ onSubmit }) => {
         break;
 
       default:
+        break;
     }
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit({ name, number });
+
+    const isExist = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (isExist) {
+      Notify.failure(`${name} is already in contacts`);
+      return;
+    }
+
+    dispatch(addContact({ name, number }));
     resetForm(event);
   };
 
