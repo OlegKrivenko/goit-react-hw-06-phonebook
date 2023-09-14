@@ -5,11 +5,13 @@ import { filterContacts } from 'redux/actions';
 import css from './ContactFilter.module.css';
 
 const ContactFilter = () => {
-  const filter = useSelector(getFilter);
-
   const dispatch = useDispatch();
+  const value = useSelector(getFilter);
 
-  const onChangeFilter = event => {};
+  const onChangeFilter = event => {
+    const value = event.currentTarget.value;
+    dispatch(filterContacts(value));
+  };
 
   return (
     <label className={css.label}>
@@ -21,9 +23,8 @@ const ContactFilter = () => {
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
-        value={filter}
-        onChange={event => onChangeFilter(event)}
-        // onChange={() => dispatch(filterContacts(filter))}
+        value={value}
+        onChange={onChangeFilter}
       />
     </label>
   );

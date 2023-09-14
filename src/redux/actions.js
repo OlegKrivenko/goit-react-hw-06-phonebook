@@ -7,8 +7,13 @@ export const addContact = createAction(
   }
 );
 
-console.log(addContact('Oleg', 1234567));
+export const deleteContact = createAction('contacts/deleteContact', id => {
+  return { payload: { id } };
+});
 
-export const deleteContact = createAction('contacts/deleteContact');
-
-export const filterContacts = createAction('contacts/filterContacts');
+export const filterContacts = createAction(
+  'contacts/filterContacts',
+  filter => {
+    return { payload: { filter } };
+  }
+);
