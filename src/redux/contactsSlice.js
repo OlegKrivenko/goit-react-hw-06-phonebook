@@ -35,6 +35,6 @@ const persistConfig = {
 };
 
 export const contactsReducer = persistReducer(
-  contactsSlice.reducer,
-  persistConfig
+  persistConfig,
+  contactsSlice.reducer
 );
