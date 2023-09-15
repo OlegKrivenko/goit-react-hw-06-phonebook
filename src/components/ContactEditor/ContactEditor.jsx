@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Notify } from 'notiflix';
 import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/actions';
+import { addContact } from 'redux/contactsSlice';
 import css from './ContactEditor.module.css';
 
 const ContactEditor = () => {

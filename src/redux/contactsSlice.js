@@ -22,17 +22,17 @@ const contactsSlice = createSlice({
       },
     },
     deleteContact: (state, action) => {
-      return state.filter(contact => contact.id !== action.payload.id);
+      return state.filter(contact => contact.id !== action.payload);
     },
   },
 });
+
+export const { addContact, deleteContact } = contactsSlice.actions;
 
 const persistConfig = {
   key: 'contacts',
   storage,
 };
-
-export const { addContact, deleteContact } = contactsSlice.actions;
 
 export const contactsReducer = persistReducer(
   contactsSlice.reducer,
