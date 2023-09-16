@@ -42,15 +42,12 @@ const ContactEditor = () => {
     }
 
     dispatch(addContact({ name, number }));
-    resetForm(event);
+    resetForm();
   };
 
-  const resetForm = event => {
+  const resetForm = () => {
     setName('');
     setNumber('');
-
-    event.target.elements.name.value = '';
-    event.target.elements.number.value = '';
   };
 
   return (
@@ -65,6 +62,7 @@ const ContactEditor = () => {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           onChange={handleChange}
+          value={name}
         />
       </label>
 
@@ -78,6 +76,7 @@ const ContactEditor = () => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           onChange={handleChange}
+          value={number}
         />
       </label>
 
